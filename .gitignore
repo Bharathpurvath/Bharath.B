@@ -3,3 +3,4 @@ __pycache__/
 *.py[cod]
 .env
 *.db
+hardware/esp32_sensor_node/secrets.h

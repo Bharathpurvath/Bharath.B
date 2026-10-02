@@ -27,6 +27,8 @@ frontend/
   style.css            Dashboard styling
 simulator/
   sensor_simulator.py  Generates and submits sample readings
+hardware/
+  esp32_sensor_node/   ESP32 sensor-node starter sketch and setup guide
 requirements.txt       Python dependencies
 ```
 
@@ -101,4 +103,6 @@ The backend creates `smart_farming.db` in the project folder. The database and P
 
 ## Hardware integration
 
-The current irrigation output is simulated in software. No physical pump or relay is controlled. The next hardware stage can connect an ESP32 and calibrated sensors to the same `POST /sensors/readings` API, then add a properly isolated relay driver with hardware safety controls.
+An ESP32 sensor-node starter sketch is in `hardware/esp32_sensor_node/`. It assumes an ESP32 DevKit with DHT22, BH1750, analog soil-moisture, and analog water-level sensors. The pin map, calibration values, and Wi-Fi/API settings are examples and need to match the actual hardware. See that folder's README before connecting a board.
+
+The pump remains simulated in software. This project does not drive a physical pump or relay.
