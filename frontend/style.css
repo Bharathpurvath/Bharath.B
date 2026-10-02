@@ -1,0 +1,166 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: #f3f6f0;
+  color: #203126;
+  font-family: Arial, sans-serif;
+}
+
+.dashboard {
+  width: min(100% - 40px, 1100px);
+  margin: 60px auto;
+}
+
+.eyebrow {
+  color: #52745a;
+  font-size: 0.85rem;
+  font-weight: bold;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+h1 {
+  margin: 8px 0;
+  font-size: clamp(2rem, 5vw, 3rem);
+}
+
+#connection-status,
+#last-updated {
+  color: #647268;
+}
+
+.sensor-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 16px;
+  margin-top: 32px;
+}
+
+.sensor-card {
+  padding: 22px;
+  border: 1px solid #e0e8dc;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 4px 14px #2031260a;
+}
+
+.sensor-card h2 {
+  margin: 0;
+  color: #647268;
+  font-size: 1rem;
+  font-weight: normal;
+}
+
+.sensor-card p {
+  margin: 16px 0 0;
+  color: #285c39;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.alert {
+  margin-top: 22px;
+  padding: 14px 18px;
+  border: 1px solid #efb5ad;
+  border-radius: 10px;
+  background: #fff0ee;
+  color: #9e2f24;
+  font-weight: bold;
+}
+
+.alert:empty {
+  display: none;
+}
+
+.irrigation-card,
+.analytics-section,
+.history-section {
+  margin-top: 18px;
+  padding: 20px 22px;
+  border: 1px solid #e0e8dc;
+  border-radius: 14px;
+  background: #fff;
+}
+
+.irrigation-card h2,
+.analytics-section h2,
+.history-section h2 {
+  margin: 0 0 12px;
+  color: #647268;
+  font-size: 1rem;
+  font-weight: normal;
+}
+
+#pump-status {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+#pump-status.pump-on {
+  color: #b2382b;
+}
+
+#pump-status.pump-off {
+  color: #285c39;
+}
+
+#pump-message {
+  margin-bottom: 0;
+  color: #647268;
+}
+
+#reading-count {
+  color: #647268;
+}
+
+.analytics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 8px 20px;
+}
+
+.analytics-grid p {
+  margin: 8px 0;
+  color: #647268;
+}
+
+.analytics-grid strong {
+  color: #285c39;
+}
+
+.table-scroll {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+th,
+td {
+  padding: 12px 10px;
+  border-bottom: 1px solid #e8ede5;
+  white-space: nowrap;
+}
+
+th {
+  color: #52745a;
+  font-size: 0.85rem;
+}
+
+td {
+  color: #39483d;
+  font-size: 0.9rem;
+}
+
+#last-updated {
+  margin-top: 22px;
+  font-size: 0.9rem;
+}

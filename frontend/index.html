@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Farming Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="dashboard">
+    <header>
+      <p class="eyebrow">IoT Based Smart Farming Agriculture</p>
+      <h1>Farm Monitor</h1>
+      <p id="connection-status">Connecting to sensor data...</p>
+    </header>
+
+    <section class="sensor-grid">
+      <article class="sensor-card">
+        <h2>Soil moisture</h2>
+        <p id="soil-moisture">--</p>
+      </article>
+      <article class="sensor-card">
+        <h2>Temperature</h2>
+        <p id="temperature">--</p>
+      </article>
+      <article class="sensor-card">
+        <h2>Humidity</h2>
+        <p id="humidity">--</p>
+      </article>
+      <article class="sensor-card">
+        <h2>Light intensity</h2>
+        <p id="light">--</p>
+      </article>
+      <article class="sensor-card">
+        <h2>Water level</h2>
+        <p id="water-level">--</p>
+      </article>
+    </section>
+
+    <p id="soil-alert" class="alert" aria-live="polite"></p>
+
+    <section class="irrigation-card">
+      <h2>Simulated irrigation</h2>
+      <p id="pump-status">Checking pump status...</p>
+      <p id="pump-message"></p>
+    </section>
+
+    <section class="analytics-section">
+      <h2>Overall analytics</h2>
+      <p id="reading-count">Loading reading count...</p>
+      <div class="analytics-grid">
+        <p>Average soil moisture: <strong id="average-soil">--</strong></p>
+        <p>Average temperature: <strong id="average-temperature">--</strong></p>
+        <p>Average humidity: <strong id="average-humidity">--</strong></p>
+        <p>Average water level: <strong id="average-water">--</strong></p>
+      </div>
+    </section>
+
+    <section class="history-section">
+      <h2>Recent sensor readings</h2>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>Time</th>
+              <th>Soil</th>
+              <th>Temp</th>
+              <th>Humidity</th>
+              <th>Light</th>
+              <th>Water</th>
+            </tr>
+          </thead>
+          <tbody id="history-rows">
+            <tr>
+              <td colspan="6">Waiting for sensor readings...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <p id="last-updated">Waiting for first reading...</p>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
