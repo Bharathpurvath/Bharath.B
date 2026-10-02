@@ -28,6 +28,20 @@ Power each module according to its datasheet. ESP32 analog inputs must not recei
 
 The real `secrets.h` file is ignored by Git. Keep it local and do not paste Wi-Fi credentials into the committed example file.
 
+## Compile from PowerShell
+
+Install Arduino CLI and make sure `arduino-cli` is available in PowerShell's `PATH`. From the repository root, add Espressif's board index once, then install the ESP32 core and required libraries and compile for a classic ESP32 DevKit:
+
+```powershell
+arduino-cli config add board_manager.additional_urls https://espressif.github.io/arduino-esp32/package_esp32_index.json
+arduino-cli core update-index
+arduino-cli core install esp32:esp32@3.3.12
+arduino-cli lib install "DHT sensor library@1.4.7" "Adafruit Unified Sensor@1.1.15" "BH1750@1.3.0"
+arduino-cli compile --fqbn esp32:esp32:esp32 hardware/esp32_sensor_node/esp32_sensor_node.ino
+```
+
+This sketch compiled successfully on October 2, 2026 with Arduino CLI 1.5.1, ESP32 core 3.3.12, and those library versions. The reported build used 980,300 bytes (74%) of program storage and 50,280 bytes (15%) of global memory. A physical board is still needed to upload and check sensor wiring and calibration.
+
 ## Let the ESP32 reach the API
 
 The API must listen on the computer's network interface. From the project root, start it with:
