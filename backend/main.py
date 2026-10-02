@@ -4,7 +4,7 @@ from statistics import mean
 
 from fastapi import Depends, FastAPI
 from fastapi.staticfiles import StaticFiles
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from sqlmodel import Session, select
 
 from backend.database import create_db_and_tables, get_session
@@ -26,11 +26,11 @@ app = FastAPI(title="Smart Farming API", lifespan=lifespan)
 
 class SensorReading(BaseModel):
     timestamp: datetime
-    soil_moisture_percent: float
-    temperature_celsius: float
-    humidity_percent: float
-    light_lux: float
-    water_level_percent: float
+    soil_moisture_percent: float = Field(ge=0, le=100)
+    temperature_celsius: float = Field(ge=-50, le=100)
+    humidity_percent: float = Field(ge=0, le=100)
+    light_lux: float = Field(ge=0)
+    water_level_percent: float = Field(ge=0, le=100)
 
 
 @app.get("/")
