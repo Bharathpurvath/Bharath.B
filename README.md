@@ -7,6 +7,7 @@ A smart farming prototype that collects sensor readings, stores them in SQLite, 
 - FastAPI service for receiving and listing sensor readings
 - SQLite storage created automatically when the backend starts
 - Sensor simulator that posts sample data every three seconds
+- Simulator retries after API or network errors and supports configurable URL and interval environment variables
 - Dashboard that refreshes sensor cards, recent readings, and analytics every three seconds
 - Low soil moisture alert at or below 30%
 - Simulated irrigation pump that turns on when soil moisture is low and water level is above 10%
@@ -57,6 +58,8 @@ In a second PowerShell terminal opened in the same project folder, start simulat
 ```powershell
 .\.venv\Scripts\python.exe .\simulator\sensor_simulator.py
 ```
+
+The simulator defaults to the local API and a three-second interval. To change either value for the current PowerShell window, set `SMART_FARM_API_URL` or `SENSOR_INTERVAL_SECONDS` before starting it.
 
 Open the dashboard or API documentation in a browser:
 
