@@ -10,6 +10,8 @@ A smart farming prototype that collects sensor readings, stores them in SQLite, 
 - Simulator retries after API or network errors and supports configurable URL and interval environment variables
 - Dashboard that refreshes sensor cards, recent readings, and analytics every three seconds
 - Interactive sensor trend chart for the latest 24 readings, with selectable sensor metrics
+- Download all saved sensor readings as an Excel-friendly CSV file
+- Clear connection state and empty-database dashboard messaging
 - Low soil moisture alert at or below 30%
 - Simulated irrigation pump that turns on when soil moisture is low and water level is above 10%
 - Low-water safeguard that keeps the simulated pump off at or below 10%

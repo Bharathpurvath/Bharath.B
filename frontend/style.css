@@ -33,6 +33,35 @@ h1 {
   color: #647268;
 }
 
+.connection-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.connection-status::before {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #a1aaa2;
+  content: "";
+}
+
+.connection-status.is-connected::before {
+  background: #32834d;
+  box-shadow: 0 0 0 3px #32834d20;
+}
+
+.connection-status.is-error::before {
+  background: #c3483b;
+  box-shadow: 0 0 0 3px #c3483b20;
+}
+
+.connection-status.is-waiting::before {
+  background: #c18a24;
+  box-shadow: 0 0 0 3px #c18a2420;
+}
+
 .sensor-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
@@ -95,6 +124,45 @@ h1 {
   color: #647268;
   font-size: 1rem;
   font-weight: normal;
+}
+
+.history-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.history-heading h2 {
+  margin: 0;
+}
+
+#download-csv {
+  min-height: 40px;
+  padding: 9px 12px;
+  border: 1px solid #b9cbb9;
+  border-radius: 8px;
+  background: #f6faf5;
+  color: #285c39;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#download-csv:hover:not(:disabled) {
+  background: #eaf3e9;
+}
+
+#download-csv:focus-visible {
+  outline: 3px solid #78a984;
+  outline-offset: 2px;
+}
+
+#download-csv:disabled {
+  color: #89958b;
+  cursor: not-allowed;
 }
 
 .trend-heading {
@@ -260,6 +328,11 @@ td {
   }
 
   .trend-heading {
+    flex-direction: column;
+  }
+
+  .history-heading {
+    align-items: flex-start;
     flex-direction: column;
   }
 }

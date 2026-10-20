@@ -1,6 +1,6 @@
-const API_URL = "http://127.0.0.1:8000/sensors/readings";
-const IRRIGATION_URL = "http://127.0.0.1:8000/irrigation/status";
-const ANALYTICS_URL = "http://127.0.0.1:8000/analytics/summary";
+const API_URL = "/sensors/readings";
+const IRRIGATION_URL = "/irrigation/status";
+const ANALYTICS_URL = "/analytics/summary";
 const LOW_SOIL_MOISTURE_LIMIT = 30;
 const TREND_READING_COUNT = 24;
 const SVG_NAMESPACE = "http://www.w3.org/2000/svg";
@@ -44,6 +44,79 @@ const TREND_METRICS = {
 };
 
 let latestReadings = [];
+
+function setConnectionStatus(message, state) {
+  const status = document.getElementById("connection-status");
+  status.textContent = message;
+  status.className = `connection-status is-${state}`;
+}
+
+function showEmptyDashboard() {
+  ["soil-moisture", "temperature", "humidity", "light", "water-level"]
+    .forEach((id) => {
+      document.getElementById(id).textContent = "--";
+    });
+
+  document.getElementById("soil-alert").textContent = "";
+  document.getElementById("pump-status").textContent = "No sensor data";
+  document.getElementById("pump-status").className = "pump-off";
+  document.getElementById("pump-message").textContent =
+    "Start the sensor simulator or connect a sensor node to see irrigation status.";
+  document.getElementById("reading-count").textContent = "No saved readings yet";
+  ["average-soil", "average-temperature", "average-humidity", "average-water"]
+    .forEach((id) => {
+      document.getElementById(id).textContent = "--";
+    });
+  const emptyRow = document.createElement("tr");
+  const emptyCell = document.createElement("td");
+  emptyCell.colSpan = 6;
+  emptyCell.textContent = "No sensor readings have been saved yet.";
+  emptyRow.appendChild(emptyCell);
+  document.getElementById("history-rows").replaceChildren(emptyRow);
+  document.getElementById("last-updated").textContent =
+    "Waiting for the first sensor reading...";
+  document.getElementById("download-csv").disabled = true;
+}
+
+function csvCell(value) {
+  const text = String(value ?? "");
+  return `"${text.replaceAll('"', '""')}"`;
+}
+
+function downloadReadingsCsv() {
+  if (latestReadings.length === 0) {
+    return;
+  }
+
+  const columns = [
+    "id",
+    "timestamp",
+    "soil_moisture_percent",
+    "temperature_celsius",
+    "humidity_percent",
+    "light_lux",
+    "water_level_percent",
+  ];
+  const lines = [
+    columns.map(csvCell).join(","),
+    ...latestReadings.map((reading) =>
+      columns.map((column) => csvCell(reading[column])).join(","),
+    ),
+  ];
+  const file = new Blob(["\uFEFF", lines.join("\r\n")], {
+    type: "text/csv;charset=utf-8",
+  });
+  const url = URL.createObjectURL(file);
+  const link = document.createElement("a");
+  const timestamp = new Date().toISOString().slice(0, 19).replaceAll(":", "-");
+
+  link.href = url;
+  link.download = `smart-farming-readings-${timestamp}.csv`;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
 
 function formatMetricValue(value, metric) {
   return new Intl.NumberFormat(undefined, {
@@ -199,8 +272,6 @@ function renderTrendChart(readings) {
 }
 
 async function updateDashboard() {
-  const status = document.getElementById("connection-status");
-
   try {
     const response = await fetch(API_URL);
 
@@ -211,9 +282,11 @@ async function updateDashboard() {
     const readings = await response.json();
     latestReadings = readings;
     renderTrendChart(readings);
+    document.getElementById("download-csv").disabled = readings.length === 0;
 
     if (readings.length === 0) {
-      status.textContent = "Connected; waiting for sensor readings";
+      showEmptyDashboard();
+      setConnectionStatus("Connected · waiting for sensor readings", "waiting");
       return;
     }
 
@@ -298,17 +371,22 @@ async function updateDashboard() {
       historyRows.appendChild(row);
     });
 
-    status.textContent = "Connected to sensor data";
+    setConnectionStatus("Connected to sensor data", "connected");
     document.getElementById("last-updated").textContent =
       `Last reading: ${new Date(latest.timestamp).toLocaleString()}`;
   } catch (error) {
-    status.textContent = "Could not connect to the API";
+    const message = latestReadings.length > 0
+      ? "Dashboard update incomplete · displaying saved readings"
+      : "Could not connect to the API";
+    setConnectionStatus(message, "error");
   }
 }
 
 document.getElementById("trend-metric").addEventListener("change", () => {
   renderTrendChart(latestReadings);
 });
+
+document.getElementById("download-csv").addEventListener("click", downloadReadingsCsv);
 
 updateDashboard();
 setInterval(updateDashboard, 3000);

@@ -11,7 +11,9 @@
     <header>
       <p class="eyebrow">IoT Based Smart Farming Agriculture</p>
       <h1>Farm Monitor</h1>
-      <p id="connection-status">Connecting to sensor data...</p>
+      <p id="connection-status" class="connection-status is-waiting" role="status" aria-live="polite">
+        Connecting to sensor data...
+      </p>
     </header>
 
     <section class="sensor-grid">
@@ -89,7 +91,12 @@
     </section>
 
     <section class="history-section">
-      <h2>Recent sensor readings</h2>
+      <div class="history-heading">
+        <h2>Recent sensor readings</h2>
+        <button id="download-csv" type="button" disabled>
+          Download all readings (CSV)
+        </button>
+      </div>
       <div class="table-scroll">
         <table>
           <thead>
