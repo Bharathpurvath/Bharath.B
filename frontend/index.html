@@ -56,6 +56,38 @@
       </div>
     </section>
 
+    <section class="trend-section" aria-labelledby="trend-heading">
+      <div class="trend-heading">
+        <div>
+          <h2 id="trend-heading">Sensor trends</h2>
+          <p id="trend-summary">Loading recent sensor history...</p>
+        </div>
+        <label for="trend-metric">
+          Show
+          <select id="trend-metric">
+            <option value="soil_moisture_percent">Soil moisture</option>
+            <option value="temperature_celsius">Temperature</option>
+            <option value="humidity_percent">Humidity</option>
+            <option value="light_lux">Light intensity</option>
+            <option value="water_level_percent">Water level</option>
+          </select>
+        </label>
+      </div>
+      <div class="trend-chart-scroll">
+        <svg
+          id="trend-chart"
+          viewBox="0 0 760 320"
+          role="img"
+          aria-labelledby="trend-chart-title trend-chart-description"
+          preserveAspectRatio="xMidYMid meet"
+        >
+          <title id="trend-chart-title">Recent sensor trend</title>
+          <desc id="trend-chart-description">The chart will appear when sensor readings are available.</desc>
+        </svg>
+      </div>
+      <p class="chart-note">Chart shows the 24 most recent readings.</p>
+    </section>
+
     <section class="history-section">
       <h2>Recent sensor readings</h2>
       <div class="table-scroll">

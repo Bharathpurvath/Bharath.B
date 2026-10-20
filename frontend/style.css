@@ -78,6 +78,7 @@ h1 {
 
 .irrigation-card,
 .analytics-section,
+.trend-section,
 .history-section {
   margin-top: 18px;
   padding: 20px 22px;
@@ -88,11 +89,98 @@ h1 {
 
 .irrigation-card h2,
 .analytics-section h2,
+.trend-section h2,
 .history-section h2 {
   margin: 0 0 12px;
   color: #647268;
   font-size: 1rem;
   font-weight: normal;
+}
+
+.trend-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+#trend-summary {
+  margin: 0;
+  color: #647268;
+}
+
+.trend-heading label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #647268;
+  font-size: 0.9rem;
+}
+
+#trend-metric {
+  min-height: 40px;
+  padding: 8px 32px 8px 10px;
+  border: 1px solid #d7e0d3;
+  border-radius: 8px;
+  background: #fff;
+  color: #203126;
+  font: inherit;
+}
+
+#trend-metric:focus-visible {
+  outline: 3px solid #78a984;
+  outline-offset: 2px;
+}
+
+.trend-chart-scroll {
+  overflow-x: auto;
+  margin-top: 16px;
+}
+
+#trend-chart {
+  display: block;
+  width: 100%;
+  min-width: 480px;
+  height: auto;
+  overflow: visible;
+}
+
+.chart-grid-line {
+  stroke: #e8ede5;
+  stroke-width: 1;
+}
+
+.chart-axis-line {
+  stroke: #aab8aa;
+  stroke-width: 1.2;
+}
+
+.chart-axis-label {
+  fill: #718075;
+  font-size: 12px;
+}
+
+.chart-line {
+  fill: none;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.chart-point {
+  stroke: #fff;
+  stroke-width: 1.5;
+}
+
+.chart-empty {
+  fill: #718075;
+  font-size: 16px;
+}
+
+.chart-note {
+  margin: 4px 0 0;
+  color: #718075;
+  font-size: 0.85rem;
 }
 
 #pump-status {
@@ -163,4 +251,15 @@ td {
 #last-updated {
   margin-top: 22px;
   font-size: 0.9rem;
+}
+
+@media (max-width: 560px) {
+  .dashboard {
+    width: min(100% - 24px, 1100px);
+    margin: 28px auto;
+  }
+
+  .trend-heading {
+    flex-direction: column;
+  }
 }
