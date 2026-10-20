@@ -186,6 +186,15 @@ void loop() {
 
   const int soilRaw = analogRead(SOIL_MOISTURE_PIN);
   const int waterRaw = analogRead(WATER_LEVEL_PIN);
+  Serial.printf(
+    "Raw ADC - soil: %d (dry=%d, wet=%d), water: %d (empty=%d, full=%d)\n",
+    soilRaw,
+    SOIL_DRY_RAW,
+    SOIL_WET_RAW,
+    waterRaw,
+    WATER_EMPTY_RAW,
+    WATER_FULL_RAW
+  );
   const float soilPercent = soilMoisturePercent(soilRaw);
   const float waterPercent = waterLevelPercent(waterRaw);
   const float temperatureCelsius = dht.readTemperature();

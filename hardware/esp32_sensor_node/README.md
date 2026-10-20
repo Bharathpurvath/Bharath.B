@@ -54,6 +54,15 @@ Run `ipconfig` on the computer and use its private IPv4 address in `API_URL`, fo
 
 ## Calibrate the analog sensors
 
-The starting raw ADC values in the sketch are examples only. Use Serial Monitor to observe the raw values in dry and wet conditions, then update `SOIL_DRY_RAW`, `SOIL_WET_RAW`, `WATER_EMPTY_RAW`, and `WATER_FULL_RAW` in the sketch. The percentages are estimates until calibrated for the exact probes, soil, and reservoir.
+The starting raw ADC values in the sketch are examples only. The firmware prints a `Raw ADC` line every sample, followed by the calculated percentages. The line includes the current calibration endpoints, so compare those endpoints with your readings.
+
+1. Upload the sketch and open Serial Monitor at **115200 baud**.
+2. Put the soil probe in the driest soil condition you expect to measure. Record the `soil` raw value and set `SOIL_DRY_RAW` to that value.
+3. Put the same probe in thoroughly damp soil. Record the `soil` raw value and set `SOIL_WET_RAW` to that value.
+4. Put the water-level sensor at the empty point. Record the `water` raw value and set `WATER_EMPTY_RAW` to that value.
+5. Put it at the full point. Record the `water` raw value and set `WATER_FULL_RAW` to that value.
+6. Upload again and confirm the dashboard percentages move in the expected direction as conditions change.
+
+The endpoint values must differ for each sensor. Percentages remain estimates until calibrated for the exact probes, soil, and reservoir. Keep all analog outputs at or below 3.3 V.
 
 The firmware waits for network time before sending timestamps. It retries Wi-Fi on later samples if the network is temporarily unavailable, and skips invalid sensor readings instead of posting them.
